@@ -70,7 +70,10 @@ def get_clue_attribs(clue, cats):
         
         clue_props = mouseover_js[1].split("_") #contains the unique ID of the clue for this specific game
                                                 #format: clue_["DJ"||"J"]_[Category(1-6)]_[Row(1-5)]
-                                                
+
+        #Was this a triple stumper?
+        triple_stumper = answer_soup.find(text="Triple Stumper") == "Triple Stumper"
+                           
         #Now to figure out the category
         cat = cats[int(clue_props[2])-1]
 
@@ -82,7 +85,22 @@ def get_clue_attribs(clue, cats):
         clue_text = clue.find(attrs={"class" : "clue_text"}).text
         clue_order_number = clue.find(attrs={"class" : "clue_order_number"}).text
         
-        return {"answer" : answer, "category" : cat, "text" : clue_text, "dollar_value": dollar_value, "order_number" : clue_order_number, "dj" : dj}
+        return {"answer" : answer, "category" : cat, "text" : clue_text, "dollar_value": dollar_value, "order_number" : clue_order_number, "dj" : dj, "triple_stumper" : triple_stumper}
 
 # scrape_all_seasons(seasons_url)
-scrape_season(base_url+"showseason.php?season=30")
+# scrape_season(base_url+"showseason.php?season=30")
+
+
+# Test on sample of episodes in test directory
+import os
+root = r'F:\Google Drive\Documents\Github\jarchive_scraper\test'
+
+for file in os.listdir(root):
+    filename = "file:\\\\\\" + os.path.join(root,file)
+    print filename
+    scrape_episode(filename, file, file)
+
+
+
+
+
