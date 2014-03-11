@@ -80,8 +80,9 @@ def get_clue_attribs(clue, cats):
         #The class name for the dollar value varies if it's a daily double
         dollar_value = clue.find(attrs={"class" : re.compile('clue_value*')}).text
         clue_text = clue.find(attrs={"class" : "clue_text"}).text
+        clue_order_number = clue.find(attrs={"class" : "clue_order_number"}).text
         
-        return {"answer" : answer, "category" : cat, "text" : clue_text, "dollar_value": dollar_value}
+        return {"answer" : answer, "category" : cat, "text" : clue_text, "dollar_value": dollar_value, "order_number" : clue_order_number}
 
 # scrape_all_seasons(seasons_url)
 scrape_season(base_url+"showseason.php?season=30")
