@@ -56,7 +56,7 @@ def scrape_episode(url, episode, air_date):
 
             #a shitty unique id but it should do
             clue_attribs['uid'] = str(episode)+clue_attribs['category']+str(clue_attribs['dollar_value'])
-            scraperwiki.sql.save(unique_keys=['uid'], data=data)
+            scraperwiki.sql.save(unique_keys=['uid'], data=clue_attribs)
 
 
 
