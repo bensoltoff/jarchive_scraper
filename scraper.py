@@ -82,7 +82,7 @@ def get_clue_attribs(clue, cats):
         clue_text = clue.find(attrs={"class" : "clue_text"}).text
         clue_order_number = clue.find(attrs={"class" : "clue_order_number"}).text
         
-        return {"answer" : answer, "category" : cat, "text" : clue_text, "dollar_value": dollar_value, "order_number" : clue_order_number}
+        return {"answer" : answer, "category" : cat, "text" : clue_text, "dollar_value": dollar_value, "order_number" : clue_order_number, "dj" : dj}
 
 # scrape_all_seasons(seasons_url)
 scrape_season(base_url+"showseason.php?season=30")
