@@ -68,15 +68,18 @@ def get_clue_attribs(clue, cats):
         answer_soup = BeautifulSoup(mouseover_js[2]) #We need to go... deeper
         answer = answer_soup.find('em', {"class" : "correct_response"}).text
         
-        clue_props = mouseover_js[1].split("_") #contains the unique ID of the clue for this specific game
-                                                #format: clue_["DJ"||"J"]_[Category(1-6)]_[Row(1-5)]
-
         #Was this a triple stumper?
         triple_stumper = answer_soup.find(text="Triple Stumper") == "Triple Stumper"
                            
         #Now to figure out the category
-        cat = cats[int(clue_props[2])-1]
-
+        clue_id = clue.find(attrs={"class" : "clue_unstuck"})['id'].split("_")[1:4] #contains the unique ID of the clue for this specific game
+                                                                                    #format: clue_["DJ"||"J"]_[Category(1-6)]_[Row(1-5)]_unstuck
+        #Adjust for if the clue is in Jeopardy or Double Jeopardy
+        if clue_id[0] == 'J':
+            cat = cats[int(clue_id[1])-1]
+        elif clue_id[0] == 'DJ':
+            cat = cats[int(clue_id[1])+6-1]
+        
         #Are we in double jeopardy?
         dj = clue_props[1] == "DJ"
 
@@ -87,11 +90,11 @@ def get_clue_attribs(clue, cats):
         
         return {"answer" : answer, "category" : cat, "text" : clue_text, "dollar_value": dollar_value, "order_number" : clue_order_number, "dj" : dj, "triple_stumper" : triple_stumper}
 
-# scrape_all_seasons(seasons_url)
-# scrape_season(base_url+"showseason.php?season=30")
+#scrape_all_seasons(seasons_url)
+#scrape_season(base_url+"showseason.php?season=30")
 
 
-# Test on sample of episodes in test directory
+#Test on sample of episodes in test directory
 import os
 root = r'F:\Google Drive\Documents\Github\jarchive_scraper\test'
 
