@@ -5,7 +5,7 @@ import time
 import re
 
 # define the order our columns are displayed in the datastore
-scraperwiki.sqlite.save_var('data_columns', ['air_date','episode', 'category', 'dollar_value', 'text', 'answer','uid'])
+# scraperwiki.sqlite.save_var('data_columns', ['air_date','episode', 'category', 'dollar_value', 'text', 'answer','uid'])
 
 seasons_url = 'http://www.j-archive.com/listseasons.php'
 base_url = 'http://www.j-archive.com/'
@@ -56,8 +56,8 @@ def scrape_episode(url, episode, air_date):
 
             #a shitty unique id but it should do
             clue_attribs['uid'] = str(episode)+clue_attribs['category']+str(clue_attribs['dollar_value'])
-            scraperwiki.datastore.save(['uid'], clue_attribs)
-            
+            scraperwiki.sql.save(unique_keys=['uid'], data=data)
+
 
 
 def get_clue_attribs(clue, cats):
