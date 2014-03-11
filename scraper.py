@@ -81,27 +81,30 @@ def get_clue_attribs(clue, cats):
             cat = cats[int(clue_id[1])+6-1]
         
         #Are we in double jeopardy?
-        dj = clue_props[1] == "DJ"
+        dj = clue_id[0] == "DJ"
+
+        #What is the question difficulty (i.e. what row is the clue in?)
+        clue_row = clue_id[2]
 
         #The class name for the dollar value varies if it's a daily double
         dollar_value = clue.find(attrs={"class" : re.compile('clue_value*')}).text
         clue_text = clue.find(attrs={"class" : "clue_text"}).text
         clue_order_number = clue.find(attrs={"class" : "clue_order_number"}).text
         
-        return {"answer" : answer, "category" : cat, "text" : clue_text, "dollar_value": dollar_value, "order_number" : clue_order_number, "dj" : dj, "triple_stumper" : triple_stumper}
+        return {"answer" : answer, "category" : cat, "text" : clue_text, "dollar_value": dollar_value, "order_number" : clue_order_number, "dj" : dj, "triple_stumper" : triple_stumper, "clue_row" : clue_row}
 
 #scrape_all_seasons(seasons_url)
-#scrape_season(base_url+"showseason.php?season=30")
+scrape_season(base_url+"showseason.php?season=30")
 
 
-#Test on sample of episodes in test directory
-import os
-root = r'F:\Google Drive\Documents\Github\jarchive_scraper\test'
-
-for file in os.listdir(root):
-    filename = "file:\\\\\\" + os.path.join(root,file)
-    print filename
-    scrape_episode(filename, file, file)
+###Test on sample of episodes in test directory
+##import os
+##root = r'F:\Google Drive\Documents\Github\jarchive_scraper\test'
+##
+##for file in os.listdir(root):
+##    filename = "file:\\\\\\" + os.path.join(root,file)
+##    print filename
+##    scrape_episode(filename, file, file)
 
 
 
