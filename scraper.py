@@ -86,4 +86,5 @@ def get_clue_attribs(clue, cats):
         
         return {"answer" : answer, "category" : cat, "text" : clue_text, "dollar_value": dollar_value}
 
-scrape_all_seasons(seasons_url)
+# scrape_all_seasons(seasons_url)
+scrape_season(base_url+"showseason.php?season=30")
